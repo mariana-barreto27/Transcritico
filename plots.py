@@ -1,4 +1,4 @@
-"""Geracao dos graficos do modelo."""
+
 
 from __future__ import annotations
 
