@@ -1,5 +1,3 @@
-"""Execucao principal do modelo de bomba de calor transcritica de CO2."""
-
 from __future__ import annotations
 
 import argparse
