@@ -17,7 +17,6 @@ class PropertyError(ValueError):
 
 
 def props(output: str, name1: str, value1: float, name2: str, value2: float, fluid: str) -> float:
-    """Calcula uma propriedade e converte excecoes do CoolProp para mensagens claras."""
     try:
         result = PropsSI(output, name1, value1, name2, value2, fluid)
     except Exception as exc:  # CoolProp lanca tipos diferentes conforme o backend.
