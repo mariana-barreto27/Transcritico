@@ -1,0 +1,26 @@
+figure,case_id,T_water_out_C,T_evap_C,P_high_MPa,COP_exp,source,notes
+Fig6,HW90p0_Tevapm6p4,90.0,-6.4,10.0,2.72,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm6p4,90.0,-6.4,11.0,2.86,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm6p4,90.0,-6.4,12.0,2.85,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm6p4,90.0,-6.4,13.0,2.78,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm3p0,90.0,-3.0,10.0,2.82,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm3p0,90.0,-3.0,11.0,2.95,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm3p0,90.0,-3.0,12.0,3.00,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevapm3p0,90.0,-3.0,13.0,2.96,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevap0p3,90.0,0.3,10.0,2.88,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevap0p3,90.0,0.3,11.0,3.07,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevap0p3,90.0,0.3,12.0,3.12,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig6,HW90p0_Tevap0p3,90.0,0.3,13.0,3.05,White_2002_Fig6_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW65p0_Tevapm6p4,65.0,-6.4,9.0,2.80,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW65p0_Tevapm6p4,65.0,-6.4,10.0,3.10,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW65p0_Tevapm6p4,65.0,-6.4,11.0,3.18,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW65p0_Tevapm6p4,65.0,-6.4,12.5,2.75,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevapm6p4,77.5,-6.4,9.0,2.72,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevapm6p4,77.5,-6.4,10.0,2.95,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevapm6p4,77.5,-6.4,11.0,3.02,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevapm6p4,77.5,-6.4,12.0,3.01,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevapm6p4,77.5,-6.4,13.0,2.82,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevap0p3,77.5,0.3,10.0,3.12,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevap0p3,77.5,0.3,11.0,3.35,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevap0p3,77.5,0.3,12.0,3.42,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.
+Fig7,HW77p5_Tevap0p3,77.5,0.3,13.0,3.31,White_2002_Fig7_digitized_approx,Ponto aproximado lido visualmente da figura; o artigo nao fornece tabela numerica.

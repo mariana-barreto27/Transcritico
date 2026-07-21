@@ -1,0 +1,2 @@
+source,case_id,T_water_out_C,T_evap_C,P_high_MPa,COP_exp,Q_heating_kW_exp,notes
+White_2002_abstract,HW77p5_Tevap0p3,77.5,0.3,,3.4,115,"Ponto citado no resumo do artigo: evaporacao +0.3 C, agua quente 77.5 C, capacidade 115 kW e COP 3.4. A pressao de descarga nao aparece nesse trecho; o script compara com o otimo calculado para a mesma condicao."
