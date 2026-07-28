@@ -30,7 +30,7 @@ class CycleInputs:
     Q_sink: float = 120e3
     T_steam: float = 120.0 + 273.15
     T_feedwater: float = 20.0 + 273.15
-    T_evap: float = 15.0 + 273.15
+    T_evap: float = 20.0 + 273.15
     eta_is_comp: float = 0.70
     eta_motor: float = 0.95
     epsilon_IHX: float = 0.70

@@ -1,0 +1,50 @@
+P_high_MPa,valid,invalid_reason,COP,T1_C,T2_C,T3_C,T4_C,T5_C,T6_C,superheat_K,m_CO2_kg_s,m_steam_kg_h,W_electric_kW,Q_evaporator_kW,x5,IHX_heat_kW,IHX_min_approach_K,gas_cooler_min_approach_K,pinch_location
+8.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+8.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+8.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+8.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+9.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+9.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+9.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+9.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+10.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+10.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+10.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+10.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+11.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+11.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+11.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler. Primeira falha: Temperatura de descarga insuficiente para o approach minimo.,,,,,,,,,,,,,,,,,
+11.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+12.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+12.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+12.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+12.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+13.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+13.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+13.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+13.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+14.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+14.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+14.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+14.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+15.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+15.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+15.5,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+15.75,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+16.0,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+16.25,False,Nao foi encontrado intervalo com mudanca de sinal para o pinch do gas cooler.,,,,,,,,,,,,,,,,,
+16.5,True,,0.9999348810109324,55.766582610075716,180.67503275864698,116.09140806410346,84.59981774290952,15.000000000000966,15.0,40.76658261007475,1.1922715839813889,164.77060596598983,120.00781478757918,5.992575951799807,0.9715466459124547,84.86822611470711,60.324825454027746,5.000000278798552,0.1605351170568562
+16.75,True,,1.0180368457026239,55.67909234761987,182.29646517191952,115.88493600704078,84.66468554715266,15.000000000000966,15.0,40.679092347618905,1.1544360789220856,164.77060596598983,117.87392618110886,8.0197701279466,0.960673332726101,82.04265775245437,60.20584365942091,5.000000241909049,0.1605351170568562
+17.0,True,,1.035516784345661,55.59332657423329,183.89708232393593,115.68247040525404,84.70917290686475,15.000000000000966,15.0,40.59332657423232,1.1192214155722702,164.77060596598983,115.88416703050113,9.91004132102392,0.94987497889474,79.41418447518122,60.08914383102075,5.0000001918393195,0.1605351170568562
+17.25,True,,1.0523977291707833,55.50911805862677,185.47728992076384,115.48361999433115,84.73371894588604,15.000000000000966,15.0,40.5091180586258,1.0863744986557935,164.77060596598983,114.02533155839447,11.675935019525246,0.939157476084934,76.96352437289117,59.97450193570438,5.000000153407143,0.1605351170568562
+17.5,True,,1.0687009607103088,55.42630573832116,187.03747346931232,115.28800754564406,84.73882231258932,15.000000000000966,15.0,40.426305738320195,1.0556739883003319,164.77060596598983,112.2858539588496,13.328438739092892,0.9285265782597701,74.67382037536443,59.8617018073229,5.000000067178519,0.1605351170568562
+17.75,True,,1.084446237290275,55.34473535906909,188.57800079901347,115.09527141801783,84.72503646567395,15.000000000000966,15.0,40.344735359068125,1.0269254157489835,164.77060596598983,110.6555547648412,14.877222973400855,0.9179878713589811,72.53026848070652,59.75053605894874,5.000000022389941,0.1605351170568562
+18.0,True,,1.0996519957456343,55.264260054928286,190.09922441867485,114.90506696875383,84.69296514942243,15.000000000000966,15.0,40.26426005492732,0.999957175190557,164.77060596598983,109.12543283171358,16.3308388098721,0.9075467450219734,70.51981258524158,59.64080691382554,4.99999997790934,0.1605351170568562
+18.25,True,,1.114335528859081,55.18474077749545,191.6014835829182,114.71706760754205,84.6432567879134,15.000000000000966,15.0,40.18474077749448,0.9746172126279145,164.77060596598983,107.68749348130603,17.696881192759264,0.8972083652813063,68.63089219295283,59.5323268300466,5.000000000030184,0.1605351170568562
+18.5,True,,1.1285131414523335,55.10604658756387,193.08510608834035,114.53096552412558,84.57659802647186,15.000000000000966,15.0,40.1060465875629,0.9507702751860019,164.77060596598983,106.33460576769775,18.982124520687137,0.8869776489365037,66.85323265242249,59.42491893656171,4.999999835479855,0.1605351170568562
+18.75,True,,1.1422002922666998,55.028054655341634,194.55040957878202,114.34647172527718,84.49370644659905,15.000000000000966,15.0,40.02805465534067,0.9282956105198952,164.77060596598983,105.06038285269534,20.192636289939422,0.8768592368891337,65.17766937495908,59.31841706993555,4.999998397881029,0.1605351170568562
+19.0,True,,1.1554116627751587,54.95065186407771,195.99770509453862,114.1633198642457,84.3953253063894,15.000000000000966,15.0,39.95065186407675,0.9070850697471264,164.77060596598983,103.85908664949301,21.33386768298164,0.8668575043627441,63.596004573280105,59.21266800016798,4.9999971112501385,0.1605351170568562
+19.25,True,,1.168161215303773,54.87373614440014,197.42730021249935,113.98126943732058,84.28221836674652,15.000000000000966,15.0,39.873736144399174,0.8870415025286269,164.77060596598983,102.72554714872533,22.41073020871094,0.8569765722944098,62.100885795110635,59.10753329292044,5.00000288665791,0.1605351170568562
+19.5,True,,1.1804626357021606,54.79720531481996,198.83948396696536,113.8000794002644,84.15514830235657,15.000000000000966,15.0,39.797205314818996,0.868077169746548,164.77060596598983,101.65505994912057,23.42769304833546,0.8472200704672361,60.68567282731112,59.00287408544443,5.000002007297269,0.1605351170568562
+19.75,True,,1.1923288388111373,54.72097458130827,200.23455325133045,113.6195496192529,84.01489454920056,15.000000000000966,15.0,39.7209745813073,0.8501129104847772,164.77060596598983,100.64337630183563,24.388792513256178,0.8375914825631832,59.34439246497596,58.898575037944624,5.000001308158744,0.1605351170568562
+20.0,True,,1.20377240556634,54.644964661304016,201.61279662289724,113.43949279368599,83.86223263655211,15.000000000000966,15.0,39.64496466130305,0.8330769130782608,164.77060596598983,99.68661803934896,25.29771286261849,0.8280939052394538,58.07163187443478,58.79452813238197,5.0000007901767844,0.1605351170568562

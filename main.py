@@ -6,7 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 from cycle_model import CycleInputs, find_optimum, sensitivity_analysis, state_table, water_side
-from plots import plot_gas_cooler_TQ, plot_ihx_profile, plot_pressure_curves, plot_sensitivity
+from plots import plot_gas_cooler_TQ, plot_ihx_profile, plot_ph_ps_extreme_pressures, plot_pressure_curves, plot_sensitivity
 from property_functions import celsius, mpa
 
 
@@ -43,7 +43,7 @@ def run(args: argparse.Namespace) -> None:
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    sweep_table, _, optimum = find_optimum(inputs)
+    sweep_table, sweep_results, optimum = find_optimum(inputs)
     states = state_table(optimum)
     water = water_side(inputs)
 
@@ -54,6 +54,7 @@ def run(args: argparse.Namespace) -> None:
     plot_pressure_curves(sweep_table, output_dir)
     plot_gas_cooler_TQ(optimum, output_dir)
     plot_ihx_profile(optimum, output_dir)
+    plot_ph_ps_extreme_pressures(sweep_results, output_dir)
 
     if args.sensitivity:
         eps_values = [0.50, 0.60, 0.70, 0.80, 0.90]
