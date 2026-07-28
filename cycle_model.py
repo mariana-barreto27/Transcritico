@@ -36,8 +36,8 @@ class CycleInputs:
     epsilon_IHX: float = 0.70
     deltaT_min_gascooler: float = 5.0
     P_high_min: float = 8e6
-    P_high_max: float = 20e6
-    pressure_step: float = 0.25e6
+    P_high_max: float = 50e6
+    pressure_step: float = 1.0e6
     N_segments: int = 300
 
 
