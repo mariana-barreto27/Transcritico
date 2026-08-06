@@ -1,4 +1,6 @@
 
+"""Geracao dos graficos do modelo."""
+
 from __future__ import annotations
 
 import os
@@ -224,7 +226,6 @@ def _annotate_cycle_states(
 def _finish_phase_axis(ax: plt.Axes, title: str, xlabel: str) -> None:
     ax.set_title(title, fontsize=12, fontweight="bold", pad=12)
     ax.set_xlabel(xlabel)
-    ax.set_ylabel("Pressao [MPa]")
     ax.set_yscale("log")
     ax.set_facecolor("#fbfbfa")
     ax.grid(True, which="major", color="#cfd4da", linewidth=0.8, alpha=0.7)
@@ -233,7 +234,6 @@ def _finish_phase_axis(ax: plt.Axes, title: str, xlabel: str) -> None:
     ax.spines["right"].set_visible(False)
     ax.spines["left"].set_color("#9aa0a6")
     ax.spines["bottom"].set_color("#9aa0a6")
-    ax.legend(loc="upper left", frameon=True, facecolor="white", edgecolor="#dddddd", framealpha=0.95)
     ax.margins(x=0.06, y=0.14)
 
 
@@ -368,6 +368,55 @@ def plot_ph_ps_extreme_pressures(results: list[dict], output_dir: Path) -> None:
     fig.legend(handles, labels, loc="lower center", ncol=4, frameon=True, facecolor="white", edgecolor="#dddddd")
     fig.tight_layout(rect=(0, 0.15, 1, 0.95))
     fig.savefig(output_dir / "diagrama_ps_extremos_pressao.png", dpi=220)
+    plt.close(fig)
+
+
+def plot_ph_ps_optimum(result: dict, output_dir: Path) -> None:
+    """Gera diagramas P-h e P-s apenas para o ponto otimo do ciclo."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    dome = _co2_saturation_dome()
+    state_offsets = {1: (0, -17), 2: (12, 8), 3: (0, 16), 4: (0, 16), 5: (0, -17), 6: (0, 16)}
+
+    fig, ax = plt.subplots(figsize=(8.0, 5.9))
+    fig.patch.set_facecolor("white")
+    _plot_phase_cycle_panel(
+        ax,
+        result,
+        dome,
+        "h_kJ_kg",
+        "h_liq",
+        "h_vap",
+        "Entalpia [kJ/kg]",
+        "Ponto otimo",
+        state_offsets,
+        True,
+    )
+    handles, labels = ax.get_legend_handles_labels()
+    fig.suptitle("Diagrama P-h do CO$_2$ no ponto otimo", fontsize=13, fontweight="bold", y=0.98)
+    fig.legend(handles, labels, loc="lower center", ncol=4, frameon=True, facecolor="white", edgecolor="#dddddd")
+    fig.tight_layout(rect=(0, 0.18, 1, 0.93))
+    fig.savefig(output_dir / "diagrama_ph_otimo.png", dpi=220)
+    plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(8.0, 5.9))
+    fig.patch.set_facecolor("white")
+    _plot_phase_cycle_panel(
+        ax,
+        result,
+        dome,
+        "s_kJ_kgK",
+        "s_liq",
+        "s_vap",
+        "Entropia [kJ/(kg K)]",
+        "Ponto otimo",
+        state_offsets,
+        True,
+    )
+    handles, labels = ax.get_legend_handles_labels()
+    fig.suptitle("Diagrama P-s do CO$_2$ no ponto otimo", fontsize=13, fontweight="bold", y=0.98)
+    fig.legend(handles, labels, loc="lower center", ncol=4, frameon=True, facecolor="white", edgecolor="#dddddd")
+    fig.tight_layout(rect=(0, 0.18, 1, 0.93))
+    fig.savefig(output_dir / "diagrama_ps_otimo.png", dpi=220)
     plt.close(fig)
 
 

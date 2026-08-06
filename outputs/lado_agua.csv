@@ -1,2 +1,2 @@
-P_steam,h_water_in,h_water_out,m_steam
-198674.42047977017,84098.90858559996,2705925.7657931824,0.045769612768330505
+P_steam,T_steam_sat,T_steam_out,steam_superheat,water_out_quality,h_water_in,h_sat_vapor,h_water_out,dh_water,Q_sink,m_steam,m_water,water_mode
+70181.76581517824,363.15,363.15,0.0,1.0,83977.99271847952,2659530.014195748,2659530.014195748,2575552.0214772685,120000.0,0.046591953491652315,0.046591953491652315,T_saida_imposta_ou_vapor_saturado

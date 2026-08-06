@@ -1,5 +1,3 @@
-"""Modelo de bomba de calor transcritica de CO2 com IHX."""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -28,17 +26,32 @@ from property_functions import (
 @dataclass(frozen=True)
 class CycleInputs:
     Q_sink: float = 120e3
+    m_co2_target: Optional[float] = None
+    m_water_target: Optional[float] = None
+    P_steam: Optional[float] = None
     T_steam: float = 120.0 + 273.15
+    T_steam_out: Optional[float] = None
     T_feedwater: float = 20.0 + 273.15
-    T_evap: float = 20.0 + 273.15
+    T_evap: float = 0.0 + 273.15
+    T_source_in: Optional[float] = None
+    T_source_out: Optional[float] = None
+    cp_source: float = 4.18e3
+    deltaT_min_evaporator: float = 5.0
     eta_is_comp: float = 0.70
     eta_motor: float = 0.95
     epsilon_IHX: float = 0.70
     deltaT_min_gascooler: float = 5.0
     P_high_min: float = 8e6
     P_high_max: float = 50e6
-    pressure_step: float = 1.0e6
+    pressure_step: float = 0.25e6
     N_segments: int = 300
+
+    def __post_init__(self) -> None:
+        # Permite escrever temperaturas diretamente em degC no caso principal.
+        for field in ("T_steam", "T_steam_out", "T_feedwater", "T_evap", "T_source_in", "T_source_out"):
+            value = getattr(self, field)
+            if value is not None and value < 250.0:
+                object.__setattr__(self, field, value + 273.15)
 
 
 COMPONENTS = {
@@ -53,19 +66,108 @@ COMPONENTS = {
 
 def water_side(inputs: CycleInputs) -> dict[str, float]:
     """Calcula propriedades do lado da agua e vazao de vapor."""
-    P_steam = props("P", "T", inputs.T_steam, "Q", 0, FLUID_WATER)
+    if inputs.m_water_target is not None and inputs.m_co2_target is not None:
+        raise PropertyError(
+            "Use vazao de agua/vapor OU vazao de CO2 imposta. "
+            "As duas juntas deixam o calor entregue ao lado da agua ambiguo."
+        )
+    if inputs.m_water_target is not None and inputs.m_water_target <= 0:
+        raise PropertyError("A vazao de agua/vapor precisa ser positiva.")
+
+    if inputs.P_steam is None:
+        P_steam = props("P", "T", inputs.T_steam, "Q", 0, FLUID_WATER)
+        T_steam_sat = inputs.T_steam
+        T_steam_out = inputs.T_steam_out if inputs.T_steam_out is not None else T_steam_sat
+    else:
+        P_steam = inputs.P_steam
+        T_steam_sat = props("T", "P", P_steam, "Q", 0, FLUID_WATER)
+        T_steam_out = inputs.T_steam_out if inputs.T_steam_out is not None else inputs.T_steam
+
     h_in = props("H", "T", inputs.T_feedwater, "P", P_steam, FLUID_WATER)
-    h_out = props("H", "P", P_steam, "Q", 1, FLUID_WATER)
-    m_steam = inputs.Q_sink / (h_out - h_in)
+    h_sat_vapor = props("H", "P", P_steam, "Q", 1, FLUID_WATER)
+
+    if inputs.m_water_target is not None:
+        h_out = h_in + inputs.Q_sink / inputs.m_water_target
+        T_steam_out = props("T", "P", P_steam, "H", h_out, FLUID_WATER)
+        water_out_quality = quality_or_none(P_steam, h_out, FLUID_WATER)
+        steam_superheat = max(0.0, T_steam_out - T_steam_sat)
+        m_steam = inputs.m_water_target
+        water_mode = "pressao_fixa_vazao_fixa_T_saida_calculada"
+    else:
+        if T_steam_out < T_steam_sat - 1e-6:
+            raise PropertyError(
+                "A temperatura de saida da agua/vapor ficou abaixo da saturacao na pressao escolhida. "
+                "Para vapor, aumente --steam-out-c, informe --m-water-kg-h para calcular T_saida, "
+                "ou reduza a pressao da agua."
+            )
+
+        if T_steam_out > T_steam_sat + 1e-6:
+            h_out = props("H", "P", P_steam, "T", T_steam_out, FLUID_WATER)
+            steam_superheat = T_steam_out - T_steam_sat
+        else:
+            h_out = h_sat_vapor
+            steam_superheat = 0.0
+            T_steam_out = T_steam_sat
+
+        water_out_quality = quality_or_none(P_steam, h_out, FLUID_WATER)
+        dh_water = h_out - h_in
+        m_steam = inputs.Q_sink / dh_water
+        water_mode = "T_saida_imposta_ou_vapor_saturado"
+
+    dh_water = h_out - h_in
+    if dh_water <= 0:
+        raise PropertyError("A variacao de entalpia no lado da agua precisa ser positiva.")
     return {
         "P_steam": P_steam,
+        "T_steam_sat": T_steam_sat,
+        "T_steam_out": T_steam_out,
+        "steam_superheat": steam_superheat,
+        "water_out_quality": water_out_quality,
         "h_water_in": h_in,
+        "h_sat_vapor": h_sat_vapor,
         "h_water_out": h_out,
+        "dh_water": dh_water,
+        "Q_sink": inputs.Q_sink,
         "m_steam": m_steam,
+        "m_water": m_steam,
+        "water_mode": water_mode,
+    }
+
+
+def heat_source_side(result: dict, inputs: CycleInputs) -> dict[str, float]:
+    """Calcula a vazao necessaria da fonte de calor no evaporador."""
+    if inputs.T_source_in is None or inputs.T_source_out is None:
+        return {}
+
+    deltaT_source = inputs.T_source_in - inputs.T_source_out
+    if deltaT_source <= 0:
+        raise PropertyError("A fonte de calor precisa entrar mais quente do que sai.")
+
+    Q_source = result["m_co2"] * result["q_evap"]
+    m_source = Q_source / (inputs.cp_source * deltaT_source)
+    evaporator_approach = inputs.T_source_out - inputs.T_evap
+
+    return {
+        "T_source_in_C": celsius(inputs.T_source_in),
+        "T_source_out_C": celsius(inputs.T_source_out),
+        "T_evap_C": celsius(inputs.T_evap),
+        "source_deltaT_K": deltaT_source,
+        "evaporator_min_approach_K": evaporator_approach,
+        "cp_source_kJ_kgK": inputs.cp_source / 1e3,
+        "Q_source_kW": Q_source / 1e3,
+        "m_source_kg_s": m_source,
+        "m_source_kg_h": m_source * 3600.0,
     }
 
 
 def base_low_state(inputs: CycleInputs) -> dict[str, float]:
+    Tcrit = PropsSI("TCRIT", FLUID_CO2)
+    if inputs.T_evap >= Tcrit:
+        raise PropertyError(
+            f"T_evap = {celsius(inputs.T_evap):.2f} degC esta acima da temperatura critica do CO2 "
+            f"({celsius(Tcrit):.2f} degC). Neste modelo, o evaporador assume CO2 saturado; use T_evap abaixo "
+            "da temperatura critica ou mude o modelo da baixa pressao."
+        )
     P_low = props("P", "T", inputs.T_evap, "Q", 1, FLUID_CO2)
     h6 = props("H", "P", P_low, "Q", 1, FLUID_CO2)
     s6 = props("S", "P", P_low, "Q", 1, FLUID_CO2)
@@ -111,7 +213,8 @@ def evaluate_for_T3(P_high: float, T3: float, inputs: CycleInputs, water: dict[s
     h2 = h1 + (h2s - h1) / inputs.eta_is_comp
     state2 = state_ph(P_high, h2, FLUID_CO2)
 
-    if state2["T"] <= inputs.T_steam + inputs.deltaT_min_gascooler:
+    T_sink_out = water["T_steam_out"]
+    if state2["T"] <= T_sink_out + inputs.deltaT_min_gascooler:
         raise PropertyError("Temperatura de descarga insuficiente para o approach minimo.")
 
     h_co2 = np.linspace(h3, h2, inputs.N_segments)
@@ -139,12 +242,20 @@ def evaluate_for_T3(P_high: float, T3: float, inputs: CycleInputs, water: dict[s
     if q_gc <= 0 or w_comp <= 0:
         raise PropertyError("Calor no gas cooler ou trabalho de compressao nao positivo.")
 
-    m_co2 = inputs.Q_sink / q_gc
+    if inputs.m_co2_target is not None:
+        m_co2 = inputs.m_co2_target
+        Q_sink = m_co2 * q_gc
+    else:
+        Q_sink = inputs.Q_sink
+        m_co2 = Q_sink / q_gc
+
+    dh_sink = water.get("dh_water", water["h_water_out"] - water["h_water_in"])
+    m_steam = Q_sink / dh_sink
     W_shaft = m_co2 * w_comp
     W_electric = W_shaft / inputs.eta_motor
-    COP = inputs.Q_sink / W_electric
+    COP = Q_sink / W_electric
 
-    energy_balance_error = inputs.Q_sink - (m_co2 * q_evap + W_shaft)
+    energy_balance_error = Q_sink - (m_co2 * q_evap + W_shaft)
     ihx_balance_error = (h3 - h4) - (h1 - h6)
     superheat = state1["T"] - props("T", "P", P_low, "Q", 1, FLUID_CO2)
     warnings = []
@@ -156,12 +267,13 @@ def evaluate_for_T3(P_high: float, T3: float, inputs: CycleInputs, water: dict[s
         "P_high": P_high,
         "P_low": P_low,
         "P_steam": water["P_steam"],
+        "Q_sink": Q_sink,
         "q_ihx": q_ihx,
         "q_evap": q_evap,
         "q_gc": q_gc,
         "w_comp": w_comp,
         "m_co2": m_co2,
-        "m_steam": water["m_steam"],
+        "m_steam": m_steam,
         "W_shaft": W_shaft,
         "W_electric": W_electric,
         "COP": COP,
@@ -192,7 +304,7 @@ def solve_pressure(P_high: float, inputs: CycleInputs) -> dict:
         return evaluate_for_T3(P_high, T3, inputs, water)["gas_cooler_min_approach"] - inputs.deltaT_min_gascooler
 
     T_low = max(inputs.T_evap + 0.5, inputs.T_feedwater + 0.5)
-    T_high = min(inputs.T_steam + 90.0, 520.0)
+    T_high = min(max(inputs.T_steam, water["T_steam_out"]) + 90.0, 520.0)
     grid = np.linspace(T_low, T_high, 28)
     samples: list[tuple[float, float]] = []
     failures: list[str] = []
@@ -246,6 +358,7 @@ def row_from_result(result: dict) -> dict:
     s = result["states"]
     return {
         "P_high_MPa": mpa(result["P_high"]),
+        "Q_sink_kW": result["Q_sink"] / 1e3,
         "COP": result["COP"],
         "T1_C": celsius(s[1]["T"]),
         "T2_C": celsius(s[2]["T"]),
@@ -314,7 +427,9 @@ def find_optimum(inputs: CycleInputs) -> tuple[pd.DataFrame, list[dict], dict]:
     table, results = pressure_sweep(inputs)
     valid = table[table["valid"] == True].copy()  # noqa: E712
     if valid.empty:
-        raise RuntimeError("Nenhuma pressao valida encontrada na varredura.")
+        reasons = table["invalid_reason"].dropna().astype(str)
+        reason = reasons.iloc[0] if not reasons.empty else "sem motivo registrado"
+        raise RuntimeError(f"Nenhuma pressao valida encontrada na varredura. Primeiro motivo: {reason}")
     best_pressure = float(valid.loc[valid["COP"].idxmax(), "P_high_MPa"]) * 1e6
     optimum = refine_optimum(best_pressure, inputs)
     return table, results, optimum
